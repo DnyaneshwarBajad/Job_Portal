@@ -1,0 +1,36 @@
+const mongoose=require('mongoose')
+
+const applicationSchema = new mongoose.Schema({
+    job:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Job',
+        required:true
+
+    },
+    applicant:{
+          type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+    },
+     resume: {
+    type: String // Could be URL or file path
+  },
+
+  coverLetter: {
+    type: String
+  },
+   appliedAt: {
+    type: Date,
+    default: Date.now
+  },
+  status: {
+  type: String,
+  enum: ['pending', 'accepted', 'rejected'],
+  default: 'pending'
+}
+
+
+})
+
+applicationSchema.index({jon:1,applicant:1},{unique:true})
+module.exports = mongoose.model('Application', applicationSchema);
